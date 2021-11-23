@@ -15,8 +15,11 @@ pipeline {
       steps {
         checkout scm
         sh 'mkdir -p creds' 
+        sh 'ls'
+        sh 'echo $PEM_PRIVATE_KEY'
         sh 'echo $PEM_PRIVATE_KEY | base64 -d > ./creds/oci_api_key.pem'
         sh 'echo $OCI_OCID_VAR | base64 -d > vars.tf'
+        sh 'ls"
       }
     }
 
