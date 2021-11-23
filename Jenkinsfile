@@ -13,13 +13,13 @@ pipeline {
 
     stage('Checkout') {
       steps {
-        checkout scm
-        sh 'mkdir -p creds' 
-        sh 'ls'
-        sh 'echo $PEM_PRIVATE_KEY'
-        sh 'echo $PEM_PRIVATE_KEY | base64 -d > ./creds/oci_api_key.pem'
-        sh 'echo $OCI_OCID_VAR | base64 -d > vars.tf'
-        sh 'ls'
+         sh 'PATH=/usr/local/bin'
+         // sh 'terraform fmt'//
+         sh 'terraform init' //only need for first run 
+         // sh 'terraform refresh -lock=false'//
+         // sh 'cp terraform.tfvars .'//
+         sh 'ls'
+               
       }
     }
 
