@@ -48,8 +48,8 @@ resource oci_containerengine_node_pool pool1 {
   
   node_source_details {
     
-    image_id    = data.oci_containerengine_node_pool_option.pool1_option.sources.image_id
-    source_type = data.oci_containerengine_node_pool_option.pool1_option.sources.source_type
+    image_id    = data.oci_containerengine_node_pool_option.pool1_option.sources.ocid1.image.oc1.eu-frankfurt-1.aaaaaaaajlbjf3l5bthwf6nphctu33ytm65r237bmbdjiik4jyfdxjx5iiea
+    source_type = data.oci_containerengine_node_pool_option.pool1_option.sources.IMAGE
     boot_volume_size_in_gbs = 60
   }
   #ssh_public_key      = var.node_pool_ssh_public_key
