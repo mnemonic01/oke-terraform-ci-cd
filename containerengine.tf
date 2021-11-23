@@ -28,7 +28,6 @@ resource oci_containerengine_node_pool pool1 {
   #kubernetes_version = data.oci_containerengine_node_pool_option.pool1_option.kubernetes_versions.2
   kubernetes_version = "v1.19.7"
   name               = "pool1"
-  node_image     = "Oracle-Linux-7.5"
   node_shape     = "VM.Standard2.2"
 
   node_config_details {
