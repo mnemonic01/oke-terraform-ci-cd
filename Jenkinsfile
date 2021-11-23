@@ -2,12 +2,6 @@ pipeline {
 
   agent any
 
- # environment {
-    
- #   PEM_PRIVATE_KEY = credentials('private_key')
- #   OCI_OCID_VAR = credentials('oci_vars')
-    
- # }
 
   stages {
 
