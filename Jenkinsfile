@@ -22,11 +22,15 @@ pipeline {
 
     stage('TF Plan') {
       
-      steps {
-        container('terraform') {
-          sh 'terraform init'
-          sh 'terraform plan -out myplan'
-        }
+    steps {
+          
+          sh 'PATH=/usr/local/bin'
+         // sh 'terraform fmt'//
+          sh 'terraform init' //only need for first run 
+         // sh 'terraform refresh -lock=false'//
+         // sh 'cp terraform.tfvars .'//
+          sh 'ls'
+          sh 'terraform plan  -lock=false -out oke_plan'
       }      
     }
 
@@ -39,10 +43,8 @@ pipeline {
     }
 
     stage('TF Apply') {
-      
       steps {
-        container('terraform') {
-          sh 'terraform apply -input=false myplan'
+          sh 'terraform apply -lock=false --auto-approve oke_plan'
         }
       }
     }
