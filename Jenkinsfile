@@ -28,7 +28,7 @@ pipeline {
          // sh 'terraform fmt'//
           sh 'terraform init' //only need for first run 
          // sh 'terraform refresh -lock=false'//
-         // sh 'cp terraform.tfvars .'//
+         sh 'cp vars.tf .'
           sh 'ls'
           sh 'terraform plan  -lock=false -out oke_plan'
       }      
