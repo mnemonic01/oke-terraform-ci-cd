@@ -25,7 +25,8 @@ resource oci_containerengine_cluster OCI-Dev-Cluster {
 resource oci_containerengine_node_pool pool1 {
   cluster_id     = oci_containerengine_cluster.OCI-Dev-Cluster.id
   compartment_id = var.compartment_ocid
-  kubernetes_version = data.oci_containerengine_node_pool_option.pool1_option.kubernetes_versions.2
+  #kubernetes_version = data.oci_containerengine_node_pool_option.pool1_option.kubernetes_versions.2
+  kubernetes_version = "v1.19.7"
   name               = "pool1"
   node_shape = "VM.Standard1.2"
 
