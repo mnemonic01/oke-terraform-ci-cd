@@ -62,12 +62,13 @@ pipeline {
           sh 'terraform apply -lock=false -auto-approve oke_plan'
         }
       }
-    			when { anyOf
+ 
+    stage('TF Destroy') {
+	       			when { anyOf
 					{
 						environment name: 'ACTION', value: 'destroy';
 					}
 				}
-    stage('TF Destroy') {
       steps {
           println 'Destroy the TF Infrastructure oke_plan'
           sh 'terraform apply -lock=false -auto-approve oke_plan'
