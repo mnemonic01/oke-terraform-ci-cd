@@ -1,7 +1,15 @@
 pipeline {
 
   agent any
+         parameters {
 
+		choice (name: 'ACTION',
+				choices: [ 'plan', 'apply', 'destroy'],
+				description: 'Run terraform plan / apply / destroy')
+		string (name: 'EMAIL',
+			   defaultValue: 'mschildmeijer@qualogy.com',
+			   description: 'Optional. Email notification')
+    }
 
   stages {
 
@@ -43,9 +51,26 @@ pipeline {
     }
 
     stage('TF Apply') {
+      when { anyOf
+					{
+						environment name: 'ACTION', value: 'apply'
+					}
+				}
       steps {
           println 'Apply the oke_plan'
-          sh 'terraform apply -lock=false --auto-approve oke_plan'
+          sh 'terraform apply -lock=false -auto-approve oke_plan'
+        }
+      }
+    }
+      stage('TF Destroy') {
+      when { anyOf
+					{
+						environment name: 'ACTION', value: 'destroy'
+					}
+				}
+      steps {
+          println 'Destroy the oke_plan'
+          sh 'terraform destroy -lock=false -auto-approve oke_plan'
         }
       }
     }
