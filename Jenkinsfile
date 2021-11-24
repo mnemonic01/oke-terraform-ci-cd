@@ -71,7 +71,7 @@ pipeline {
 				}
       steps {
           println 'Destroy the TF Infrastructure oke_plan'
-          sh 'terraform apply -lock=false -auto-approve oke_plan'
+          sh 'terraform destroy -lock=false -auto-approve oke_plan'
         }
       }
     }
