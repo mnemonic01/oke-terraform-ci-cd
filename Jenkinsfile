@@ -1,7 +1,11 @@
 pipeline {
 
   agent any
-
+	parameters {
+		choice (name: 'ACTION',
+				choices: [ 'plan', 'apply', 'destroy'],
+				description: 'Run terraform plan / apply / destroy')
+    }
 
   stages {
 
@@ -19,12 +23,17 @@ pipeline {
     }
 
     stage('TF Plan') {
-      
+      			when { anyOf
+					{
+						environment name: 'ACTION', value: 'plan';
+					}
+        }          
+                  
     steps {
           
           sh 'PATH=/usr/local/bin'
          // sh 'terraform fmt'//
-          sh 'terraform init' //only need for first run 
+          //sh 'terraform init' //only need for first run 
          // sh 'terraform refresh -lock=false'//
          //sh 'cp vars.tf .'//
           println 'List all files needed'
@@ -43,11 +52,21 @@ pipeline {
     //}
 
     stage('TF Apply') {
+      			when { anyOf
+					{
+						environment name: 'ACTION', value: 'apply'
+					}
+				}
       steps {
-          println 'Apply the TF Infrastrujture oke_plan'
+          println 'Apply the TF Infrastructure oke_plan'
           sh 'terraform apply -lock=false -auto-approve oke_plan'
         }
       }
+    			when { anyOf
+					{
+						environment name: 'ACTION', value: 'destroy';
+					}
+				}
     stage('TF Destroy') {
       steps {
           println 'Destroy the TF Infrastructure oke_plan'
