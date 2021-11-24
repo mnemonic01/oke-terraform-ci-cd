@@ -9,6 +9,7 @@ pipeline {
       steps {
          sh 'PATH=/usr/local/bin'
          // sh 'terraform fmt'//
+         println 'Initiate Terraform provider'
          sh 'terraform init' //only need for first run 
          // sh 'terraform refresh -lock=false'//
          // sh 'cp terraform.tfvars .'//
@@ -26,7 +27,9 @@ pipeline {
           sh 'terraform init' //only need for first run 
          // sh 'terraform refresh -lock=false'//
          //sh 'cp vars.tf .'//
+          println 'List all files needed'
           sh 'ls'
+          println 'Terraform plan oke'
           sh 'terraform plan  -lock=false -out oke_plan'
       }      
     }
@@ -41,6 +44,7 @@ pipeline {
 
     stage('TF Apply') {
       steps {
+          println 'Apply the oke_plan'
           sh 'terraform apply -lock=false --auto-approve oke_plan'
         }
       }
